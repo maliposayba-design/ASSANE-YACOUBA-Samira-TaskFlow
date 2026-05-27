@@ -18,7 +18,7 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 ## Fonctionnalites implementees
 - [x] Connexion MySQL
 - [x] Inscription utilisateur avec hashage SHA-256 
-- [ ] connexion utilisateur
+- [x] connexion et deconnexion utilisateur
 - [ ] Ajout, affichage, modification, suppression de taches
 - [ ] Changement de statut avec historique
 - [ ] Filtres et recherche

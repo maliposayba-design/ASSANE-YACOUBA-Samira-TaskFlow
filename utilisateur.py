@@ -42,6 +42,58 @@ def utilisateur_existe(nom_utilisateur):
         if conn:
             conn.close()
 
+def recuperer_utilisateur(nom_utilisateur):
+
+    conn = None
+
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+
+            sql = """
+            SELECT * FROM UTILISATEUR
+            WHERE nom_utilisateur = %s
+            """
+
+            cursor.execute(sql, (nom_utilisateur,))
+
+            utilisateur = cursor.fetchone()
+
+            return utilisateur
+
+    except Error as e:
+        print(f"Erreur base de donnees : {e}")
+        return None
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+def connecter_utilisateur():
+
+    nom_utilisateur = input("Nom d'utilisateur : ")
+    mot_de_passe = input("Mot de passe : ")
+
+    utilisateur = recuperer_utilisateur(nom_utilisateur)
+
+    if utilisateur is None:
+        print("Utilisateur introuvable")
+        return None
+
+    if verifier_mdp(mot_de_passe, utilisateur["mot_de_passe"]):
+        print("Connexion reussie")
+        return utilisateur
+
+    print("Mot de passe incorrect")
+    return None
+
 def inscrire_utilisateur():
 
     nom_utilisateur = input("Nom d'utilisateur : ")
@@ -92,3 +144,7 @@ def inscrire_utilisateur():
 
         if conn:
             conn.close()
+
+def deconnecter_utilisateur():
+    print("Deconnexion reussie")
+    return None       

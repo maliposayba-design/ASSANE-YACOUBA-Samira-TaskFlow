@@ -1,3 +1,19 @@
-from utilisateur import inscrire_utilisateur
+from utilisateur import recuperer_utilisateur
 
-inscrire_utilisateur()
+print(recuperer_utilisateur("sam"))
+
+from utilisateur import connecter_utilisateur
+
+utilisateur = connecter_utilisateur()
+
+print(utilisateur)
+
+from utilisateur import connecter_utilisateur, deconnecter_utilisateur
+
+utilisateur = connecter_utilisateur()
+
+print(utilisateur)
+
+utilisateur = deconnecter_utilisateur()
+
+print(utilisateur)
