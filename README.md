@@ -22,7 +22,7 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] Ajout et affichage des taches
 - [x] modification et Changement de statut avec historique
 - [x] suppression des taches
-- [ ] Filtres et recherche
+- [x] Filtres et recherche
 - [ ] Gestion des categories
 - [ ] Statistiques
 ## Structure du projet
