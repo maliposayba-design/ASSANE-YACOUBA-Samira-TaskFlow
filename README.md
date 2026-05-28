@@ -20,8 +20,8 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] Inscription utilisateur avec hashage SHA-256 
 - [x] connexion et deconnexion utilisateur
 - [x] Ajout et affichage des taches
-- [ ] modification et suppression des taches
-- [ ] Changement de statut avec historique
+- [x] modification et Changement de statut avec historique
+- [ ] suppression des taches
 - [ ] Filtres et recherche
 - [ ] Gestion des categories
 - [ ] Statistiques

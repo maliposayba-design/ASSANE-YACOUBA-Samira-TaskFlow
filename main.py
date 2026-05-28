@@ -15,3 +15,11 @@ print(tache)
 
 if tache:
     afficher_tache(tache)
+
+from tache import modifier_tache
+
+modifier_tache(1)
+
+from tache import changer_statut_tache
+
+changer_statut_tache(1)
