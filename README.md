@@ -21,7 +21,7 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] connexion et deconnexion utilisateur
 - [x] Ajout et affichage des taches
 - [x] modification et Changement de statut avec historique
-- [ ] suppression des taches
+- [x] suppression des taches
 - [ ] Filtres et recherche
 - [ ] Gestion des categories
 - [ ] Statistiques
