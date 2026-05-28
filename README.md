@@ -19,7 +19,8 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] Connexion MySQL
 - [x] Inscription utilisateur avec hashage SHA-256 
 - [x] connexion et deconnexion utilisateur
-- [ ] Ajout, affichage, modification, suppression de taches
+- [x] Ajout et affichage des taches
+- [ ] modification et suppression des taches
 - [ ] Changement de statut avec historique
 - [ ] Filtres et recherche
 - [ ] Gestion des categories

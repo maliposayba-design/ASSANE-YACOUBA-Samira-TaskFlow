@@ -1,19 +1,17 @@
-from utilisateur import recuperer_utilisateur
+from tache import lister_taches
+from affichage import afficher_tache
 
-print(recuperer_utilisateur("sam"))
+taches = lister_taches(1)
 
-from utilisateur import connecter_utilisateur
+for tache in taches:
+    afficher_tache(tache)
 
-utilisateur = connecter_utilisateur()
+from tache import recuperer_tache
+from affichage import afficher_tache
 
-print(utilisateur)
+tache = recuperer_tache(1, 1)
 
-from utilisateur import connecter_utilisateur, deconnecter_utilisateur
+print(tache)
 
-utilisateur = connecter_utilisateur()
-
-print(utilisateur)
-
-utilisateur = deconnecter_utilisateur()
-
-print(utilisateur)
+if tache:
+    afficher_tache(tache)

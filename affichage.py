@@ -51,6 +51,52 @@ def afficher_menu_principal(nom_utilisateur):
 
     print("=" * 50)
 
+def afficher_tache(tache):
+
+    couleurs_priorite = {
+        "basse": BLEU,
+        "normale": BLANC,
+        "haute": JAUNE,
+        "urgente": ROUGE
+    }
+
+    symboles_statut = {
+        "a_faire": "[ ]",
+        "en_cours": "[~]",
+        "terminee": "[X]",
+        "annulee": "[-]"
+    }
+
+    couleur = couleurs_priorite.get(
+        tache["priorite"],
+        BLANC
+    )
+
+    symbole = symboles_statut.get(
+        tache["statut"],
+        "[ ]"
+    )
+
+    print(f"\n {symbole} {couleur}{GRAS}{tache['titre']}{RESET}")
+
+    print(f" Priorite : {couleur}{tache['priorite']}{RESET}")
+
+    print(f" Statut : {tache['statut']}")
+
+    print(
+        f" Echeance : "
+        f"{tache.get('date_echeance', 'Non definie')}"
+    )
+
+    print(
+        f" Categorie : "
+        f"{tache.get('nom_categorie', 'Aucune')}"
+    )
+
+    if tache.get("description"):
+        print(f" Detail : {tache['description']}")
+
+    print()
 
 def vider_ecran():
     import os
