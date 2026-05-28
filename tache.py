@@ -331,3 +331,59 @@ def changer_statut_tache(id_user):
 
         if conn:
             conn.close()
+
+def supprimer_tache(id_user):
+
+    id_tache = input("ID de la tache a supprimer : ")
+
+    tache = recuperer_tache(id_tache, id_user)
+
+    if tache is None:
+        print("Tache introuvable")
+        return
+
+    print(f"Titre : {tache['titre']}")
+
+    confirmation = input(
+        "Confirmer la suppression ? (o/n) : "
+    )
+
+    if confirmation.lower() != "o":
+        print("Suppression annulee")
+        return
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+            cursor = conn.cursor()
+
+            sql = """
+            DELETE FROM TACHE
+            WHERE id_tache = %s
+            AND id_user = %s
+            """
+
+            valeurs = (
+                id_tache,
+                id_user
+            )
+
+            cursor.execute(sql, valeurs)
+
+            conn.commit()
+
+            print("Tache supprimee avec succes")
+
+    except Error as e:
+        print(f"Erreur base de donnees : {e}")
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()

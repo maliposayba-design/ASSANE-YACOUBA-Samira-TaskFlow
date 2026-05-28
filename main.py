@@ -23,3 +23,7 @@ modifier_tache(1)
 from tache import changer_statut_tache
 
 changer_statut_tache(1)
+
+from tache import supprimer_tache
+
+supprimer_tache(1)
