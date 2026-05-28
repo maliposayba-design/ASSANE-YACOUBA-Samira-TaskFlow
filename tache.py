@@ -387,3 +387,210 @@ def supprimer_tache(id_user):
 
         if conn:
             conn.close()
+
+def filtrer_taches_statut(id_user):
+
+    print("\nStatuts disponibles :")
+    print("1. a_faire")
+    print("2. en_cours")
+    print("3. terminee")
+    print("4. annulee")
+
+    choix = input("Choisir un statut : ")
+
+    statuts = {
+        "1": "a_faire",
+        "2": "en_cours",
+        "3": "terminee",
+        "4": "annulee"
+    }
+
+    statut = statuts.get(choix)
+
+    if statut is None:
+        print("Statut invalide")
+        return []
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+
+            sql = """
+            SELECT *
+            FROM TACHE
+            WHERE id_user = %s
+            AND statut = %s
+            """
+
+            valeurs = (
+                id_user,
+                statut
+            )
+
+            cursor.execute(sql, valeurs)
+
+            taches = cursor.fetchall()
+
+            return taches
+
+    except Error as e:
+        print(f"Erreur base de donnees : {e}")
+        return []
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+def filtrer_taches_priorite(id_user):
+
+    print("\nPriorites disponibles :")
+    print("1. basse")
+    print("2. normale")
+    print("3. haute")
+    print("4. urgente")
+
+    choix = input("Choisir une priorite : ")
+
+    priorites = {
+        "1": "basse",
+        "2": "normale",
+        "3": "haute",
+        "4": "urgente"
+    }
+
+    priorite = priorites.get(choix)
+
+    if priorite is None:
+        print("Priorite invalide")
+        return []
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+
+            sql = """
+            SELECT *
+            FROM TACHE
+            WHERE id_user = %s
+            AND priorite = %s
+            """
+
+            valeurs = (
+                id_user,
+                priorite
+            )
+
+            cursor.execute(sql, valeurs)
+
+            taches = cursor.fetchall()
+
+            return taches
+
+    except Error as e:
+        print(f"Erreur base de donnees : {e}")
+        return []
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+def rechercher_taches(id_user):
+
+    mot_cle = input("Mot-cle de recherche : ")
+
+    recherche = f"%{mot_cle}%"
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+
+            sql = """
+            SELECT *
+            FROM TACHE
+            WHERE id_user = %s
+            AND (
+                titre LIKE %s
+                OR description LIKE %s
+            )
+            """
+
+            valeurs = (
+                id_user,
+                recherche,
+                recherche
+            )
+
+            cursor.execute(sql, valeurs)
+
+            taches = cursor.fetchall()
+
+            return taches
+
+    except Error as e:
+        print(f"Erreur base de donnees : {e}")
+        return []
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+def taches_en_retard(id_user):
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+
+            sql = """
+            SELECT *
+            FROM TACHE
+            WHERE id_user = %s
+            AND date_echeance < CURDATE()
+            AND statut NOT IN (
+                'terminee',
+                'annulee'
+            )
+            """
+
+            cursor.execute(sql, (id_user,))
+
+            taches = cursor.fetchall()
+
+            return taches
+
+    except Error as e:
+        print(f"Erreur base de donnees : {e}")
+        return []
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
