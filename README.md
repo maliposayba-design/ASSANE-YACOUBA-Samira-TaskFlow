@@ -24,6 +24,7 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] suppression des taches
 - [x] Filtres et recherche
 - [x] Gestion des categories
+- [x] historique
 - [ ] Statistiques
 ## Structure du projet
 taskflow/
