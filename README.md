@@ -23,8 +23,7 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] modification et Changement de statut avec historique
 - [x] suppression des taches
 - [x] Filtres et recherche
-- [x] Gestion des categories
-- [x] historique
+- [x] Gestion des categories et etiquettes
 - [ ] Statistiques
 ## Structure du projet
 taskflow/
