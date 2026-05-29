@@ -1,63 +1,65 @@
+from categorie import creer_categorie
+
+creer_categorie(1)
+
+from categorie import lister_categories
+
+categories = lister_categories(1)
+
+for categorie in categories:
+
+    print("\n----------------")
+
+    print(
+        f"ID : {categorie['id_categorie']}"
+    )
+
+    print(
+        f"Nom : {categorie['nom_categorie']}"
+    )
+
+    print(
+        f"Couleur : {categorie['couleur']}"
+    )
+
+    print(
+        f"Nombre de taches : "
+        f"{categorie['nombre_taches']}"
+    )
+    from categorie import supprimer_categorie
+
+supprimer_categorie(1)
+
 from tache import ajouter_tache
 tache = ajouter_tache(1)
-from tache import lister_taches
 
+from tache import lister_taches
 from affichage import afficher_tache
 
 taches = lister_taches(1)
 
 for tache in taches:
     afficher_tache(tache)
-
-from tache import recuperer_tache
-from affichage import afficher_tache
-
-tache = recuperer_tache(1, 1)
-
-print(tache)
-
-if tache:
-    afficher_tache(tache)
-
 from tache import modifier_tache
-
 modifier_tache(1)
 
-from tache import changer_statut_tache
-
-changer_statut_tache(1)
-
-from tache import supprimer_tache
-
-supprimer_tache(1)
-
-from tache import filtrer_taches_statut
+from tache import filtrer_taches_categorie
 from affichage import afficher_tache
 
-taches = filtrer_taches_statut(1)
+taches = filtrer_taches_categorie(1)
 
 for tache in taches:
+
     afficher_tache(tache)
 
-from tache import filtrer_taches_priorite
-from affichage import afficher_tache
+from etiquette import creer_etiquette
 
-taches = filtrer_taches_priorite(1)
+creer_etiquette(1)
 
-for tache in taches:
-    afficher_tache(tache)
+from etiquette import ajouter_etiquette_tache
 
-from tache import rechercher_taches
-from affichage import afficher_tache
+ajouter_etiquette_tache(1)
 
-taches = rechercher_taches(1)
+from etiquette import retirer_etiquette_tache
 
-for tache in taches:
-    afficher_tache(tache)
-from tache import taches_en_retard
-from affichage import afficher_tache
-
-taches = taches_en_retard(1)
-
-for tache in taches:
-    afficher_tache(tache)
+retirer_etiquette_tache()
