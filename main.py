@@ -1,65 +1,22 @@
-from categorie import creer_categorie
+from historique import consulter_historique
 
-creer_categorie(1)
+historique = consulter_historique(1)
 
-from categorie import lister_categories
-
-categories = lister_categories(1)
-
-for categorie in categories:
+for ligne in historique:
 
     print("\n----------------")
 
     print(
-        f"ID : {categorie['id_categorie']}"
+        f"Ancien statut : "
+        f"{ligne['ancien_statut']}"
     )
 
     print(
-        f"Nom : {categorie['nom_categorie']}"
+        f"Nouveau statut : "
+        f"{ligne['nouveau_statut']}"
     )
 
     print(
-        f"Couleur : {categorie['couleur']}"
+        f"Date du changement : "
+        f"{ligne['date_changement']}"
     )
-
-    print(
-        f"Nombre de taches : "
-        f"{categorie['nombre_taches']}"
-    )
-    from categorie import supprimer_categorie
-
-supprimer_categorie(1)
-
-from tache import ajouter_tache
-tache = ajouter_tache(1)
-
-from tache import lister_taches
-from affichage import afficher_tache
-
-taches = lister_taches(1)
-
-for tache in taches:
-    afficher_tache(tache)
-from tache import modifier_tache
-modifier_tache(1)
-
-from tache import filtrer_taches_categorie
-from affichage import afficher_tache
-
-taches = filtrer_taches_categorie(1)
-
-for tache in taches:
-
-    afficher_tache(tache)
-
-from etiquette import creer_etiquette
-
-creer_etiquette(1)
-
-from etiquette import ajouter_etiquette_tache
-
-ajouter_etiquette_tache(1)
-
-from etiquette import retirer_etiquette_tache
-
-retirer_etiquette_tache()
