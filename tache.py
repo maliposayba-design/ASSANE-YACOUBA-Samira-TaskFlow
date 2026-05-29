@@ -720,3 +720,58 @@ def filtrer_taches_categorie(id_user):
 
         if conn:
             conn.close()
+
+def taches_du_jour(id_user):
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+
+            cursor = conn.cursor(
+                dictionary=True
+            )
+
+            sql = """
+            SELECT
+                TACHE.*,
+                CATEGORIE.nom_categorie
+
+            FROM TACHE
+
+            LEFT JOIN CATEGORIE
+            ON TACHE.id_categorie =
+               CATEGORIE.id_categorie
+
+            WHERE TACHE.id_user = %s
+            AND DATE(date_echeance) =
+                CURDATE()
+            """
+
+            cursor.execute(
+                sql,
+                (id_user,)
+            )
+
+            taches = cursor.fetchall()
+
+            return taches
+
+    except Error as e:
+
+        print(
+            f"Erreur base de donnees : {e}"
+        )
+
+        return []
+
+    finally:
+
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
