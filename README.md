@@ -25,7 +25,7 @@ Samira Assane Yacouba - Licence Informatique 1 - Groupe ISI
 - [x] Filtres et recherche
 - [x] Gestion des categories et etiquettes
 - [x] historique
-- [ ] Statistiques
+- [x] Statistiques
 ## Structure du projet
 taskflow/
 +-- main.py
