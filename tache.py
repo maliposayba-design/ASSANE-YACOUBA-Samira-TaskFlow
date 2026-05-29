@@ -1,3 +1,4 @@
+from categorie import lister_categories
 from connexion import obtenir_connexion
 from mysql.connector import Error
 def ajouter_tache(id_user):
@@ -39,6 +40,29 @@ def ajouter_tache(id_user):
     conn = None
     cursor = None
 
+    categories = lister_categories(id_user)
+
+    id_categorie = None
+
+    if categories:
+
+        print("\nCategories disponibles :")
+
+        for categorie in categories:
+
+            print(
+                f"{categorie['id_categorie']} - "
+                f"{categorie['nom_categorie']}"
+            )
+
+        choix_categorie = input(
+            "ID categorie "
+            "(laisser vide pour aucune) : "
+        )
+
+        if choix_categorie.strip() != "":
+            id_categorie = choix_categorie
+            
     try:
         conn = obtenir_connexion()
 
@@ -47,8 +71,8 @@ def ajouter_tache(id_user):
 
             sql = """
             INSERT INTO TACHE
-            (titre, description, date_echeance, priorite, id_user)
-            VALUES (%s, %s, %s, %s, %s)
+           (titre, description, date_echeance, priorite, id_user, id_categorie)
+            VALUES (%s, %s, %s, %s, %s, %s)
             """
 
             valeurs = (
@@ -56,7 +80,8 @@ def ajouter_tache(id_user):
                 description,
                 date_echeance,
                 priorite,
-                id_user
+                id_user,
+                id_categorie
                 )
             cursor.execute(sql, valeurs)
 
@@ -85,11 +110,16 @@ def lister_taches(id_user):
         if conn:
             cursor = conn.cursor(dictionary=True)
 
-            sql = """
-            SELECT *
-            FROM TACHE
-            WHERE id_user = %s
-            """
+            sql = sql = """
+                SELECT
+                TACHE.*,
+                CATEGORIE.nom_categorie
+                FROM TACHE
+                LEFT JOIN CATEGORIE
+                ON TACHE.id_categorie =
+                CATEGORIE.id_categorie
+                WHERE TACHE.id_user = %s
+                """
 
             cursor.execute(sql, (id_user,))
 
@@ -161,6 +191,21 @@ def modifier_tache(id_user):
     print(f"Priorite : {tache['priorite']}")
     print(f"Date echeance : {tache['date_echeance']}")
 
+    categories = lister_categories(id_user)
+
+    print("\nCategories disponibles :")
+
+    for categorie in categories:
+
+        print(
+            f"{categorie['id_categorie']} - "
+            f"{categorie['nom_categorie']}"
+        )
+
+    nouvelle_categorie = input(
+        "Nouvelle categorie "
+        "(laisser vide pour inchanger) : "
+    )
     nouveau_titre = input("Nouveau titre : ")
     nouvelle_description = input("Nouvelle description : ")
     nouvelle_date = input(
@@ -196,6 +241,9 @@ def modifier_tache(id_user):
     if nouvelle_date.strip() == "":
         nouvelle_date = tache["date_echeance"]
 
+    if nouvelle_categorie.strip() == "":
+        nouvelle_categorie = tache["id_categorie"]
+
     conn = None
     cursor = None
 
@@ -210,7 +258,8 @@ def modifier_tache(id_user):
             SET titre = %s,
                 description = %s,
                 date_echeance = %s,
-                priorite = %s
+                priorite = %s,
+                id_categorie = %s
             WHERE id_tache = %s
             AND id_user = %s
             """
@@ -220,6 +269,7 @@ def modifier_tache(id_user):
                 nouvelle_description,
                 nouvelle_date,
                 nouvelle_priorite,
+                nouvelle_categorie,
                 id_tache,
                 id_user
             )
@@ -589,6 +639,82 @@ def taches_en_retard(id_user):
         return []
 
     finally:
+        if cursor:
+            cursor.close()
+
+        if conn:
+            conn.close()
+
+def filtrer_taches_categorie(id_user):
+
+    categories = lister_categories(id_user)
+
+    if not categories:
+
+        print("Aucune categorie disponible")
+        return []
+
+    print("\nCategories disponibles :")
+
+    for categorie in categories:
+
+        print(
+            f"{categorie['id_categorie']} - "
+            f"{categorie['nom_categorie']}"
+        )
+
+    id_categorie = input(
+        "Choisir l'ID categorie : "
+    )
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = obtenir_connexion()
+
+        if conn:
+
+            cursor = conn.cursor(
+                dictionary=True
+            )
+
+            sql = """
+            SELECT
+                TACHE.*,
+                CATEGORIE.nom_categorie
+
+            FROM TACHE
+
+            LEFT JOIN CATEGORIE
+            ON TACHE.id_categorie =
+               CATEGORIE.id_categorie
+
+            WHERE TACHE.id_user = %s
+            AND TACHE.id_categorie = %s
+            """
+
+            valeurs = (
+                id_user,
+                id_categorie
+            )
+
+            cursor.execute(sql, valeurs)
+
+            taches = cursor.fetchall()
+
+            return taches
+
+    except Error as e:
+
+        print(
+            f"Erreur base de donnees : {e}"
+        )
+
+        return []
+
+    finally:
+
         if cursor:
             cursor.close()
 
