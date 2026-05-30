@@ -7,6 +7,9 @@ def creer_categorie(id_user):
     nom_categorie = input(
         "Nom de la categorie : "
     )
+    if nom_categorie.strip() == "":
+     print("Nom categorie obligatoire")
+     return
 
     print("\nCouleurs disponibles :")
     print("1. rouge")

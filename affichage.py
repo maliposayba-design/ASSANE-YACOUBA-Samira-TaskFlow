@@ -47,8 +47,8 @@ def afficher_menu_principal(nom_utilisateur):
     print(f" {GRAS}7.{RESET} Gerer mes etiquettes")
     print(f" {GRAS}8.{RESET} Voir l'historique d'une tache")
     print(f" {GRAS}9.{RESET} Rechercher des taches")
+    print(f" {GRAS}10.{RESET} Mes statistiques")
     print(f" {GRAS}0.{RESET} {ROUGE}Se deconnecter{RESET}")
-
     print("=" * 50)
 
 def afficher_tache(tache):

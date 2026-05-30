@@ -79,7 +79,13 @@ def recuperer_utilisateur(nom_utilisateur):
 def connecter_utilisateur():
 
     nom_utilisateur = input("Nom d'utilisateur : ")
+    if nom_utilisateur.strip() == "":
+      print("Nom d'utilisateur obligatoire")
+      return None
     mot_de_passe = input("Mot de passe : ")
+    if mot_de_passe.strip() == "":
+     print("Mot de passe obligatoire")
+     return None
 
     utilisateur = recuperer_utilisateur(nom_utilisateur)
 
@@ -97,9 +103,19 @@ def connecter_utilisateur():
 def inscrire_utilisateur():
 
     nom_utilisateur = input("Nom d'utilisateur : ")
+
+    if nom_utilisateur.strip() == "":
+     print("Nom d'utilisateur obligatoire")
+     return
     email = input("Email : ")
 
+    if "@" not in email or "." not in email:
+       print("Adresse email invalide")
+       return
     mot_de_passe = input("Mot de passe : ")
+    if mot_de_passe.strip() == "":
+     print("Mot de passe obligatoire")
+     return
     confirmation = input("Confirmer le mot de passe : ")
 
     if mot_de_passe != confirmation:

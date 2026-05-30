@@ -10,7 +10,7 @@ def creer_etiquette(id_user):
     
     if nom_etiquette.strip() == "":
       print ("Nom etiquette obligatoire")
-    return
+      return
     conn = None
     cursor = None
 
